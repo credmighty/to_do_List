@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do - Ers </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Jacques+Francois+Shadow&family=Nosifer&family=Poppins:wght@300&display=swap');
+        :root {
+            --green: #27ae60;
+            --black: #192a56;
+            --warn: #821c36;
+            --light-color: #666;
+            --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+            --box-shadow-hover: 0 0.5rem 1.5rem #27ae60;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            outline: none;
+            border: none;
+            text-decoration: none;
+            transition: all 0.2s linear;
+        }
+
+        html {
+            font-size: 62.5%;
+            overflow-x: hidden;
+            scroll-padding-top: 5.5rem;
+            scroll-behavior: smooth;
+            font-family: "Nunito", sans-serif;
+        }
+
+        body {
+            overflow: hidden;
+            background: white;
+            font-family: 'Poppins', sans-serif;
+            
+        }
+
+        section {
+            padding: 2rem 9%;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            padding: 1rem 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            box-shadow: var(--box-shadow);
+        }
+
+        header .title {
+            color: var(--black);
+            font-size: 2.5rem;
+            font-weight: bolder;
+            font-family: 'Jacques Francois Shadow', cursive;
+            font-family: 'Nosifer', cursive;
+        }
+
+        header i {
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 2rem;
+            box-shadow: var(--box-shadow);
+            background-color: rgb(253, 253, 253);
+            border: 1px solid #e1e1e1;
+        }
+
+        header i:hover {
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .main {
+            width: 100%;
+            min-height: 85vh;
+            padding-top: 9rem;
+        }
+
+        .task-container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .item {
+            width: 100%;
+            box-shadow: var(--box-shadow);
+            padding: 20px 15px;
+            border-radius: 8px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .item.checked {
+            background-color: rgb(243, 235, 235);
+        }
+
+        .item:first-child {
+            margin-top: 0;
+        }
+
+        .item .t-title {
+            color: var(--green);
+            font-size: 2rem;
+        }
+
+        .item.checked .t-title {
+            text-decoration: line-through;
+        }
+
+        .item .remining {
+            font-size: 1.5rem;
+            color: var(--black);
+        }
+
+        .item .s-title {
+            font-size: 1.5rem;
+            color: var(--black);
+            margin-top: 5px;
+        }
+
+        .item i {
+            color: #3fa2ff;
+            font-size: 1rem;
+            padding: 10px;
+            transition: all 1.2s;
+            box-shadow: var(--box-shadow);
+            border-radius: 5px;
+            border: 1px solid #e1e1e1;
+        }
+
+        .item i:hover {
+            cursor: pointer;
+            transform: rotate(360deg);
+            color: var(--green);
+        }
+
+        .item i:last-child:hover {
+            color: #ff0000;
+        }
+
+        .item i:last-child {
+            margin-left: 5px;
+        }
+
+        .list-form {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            padding-top: 9rem;
+            background: #917fff;
+            display: none;
+            top: 0;
+            left: 0;
+        }
+
+        .list-form.visible {
+            display: flex;
+        }
+
+        .form {
+            width: 50%;
+            background-color: white;
+            padding: 50px 25px;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+        }
+
+        .form input,
+        .form textarea {
+            width: 100%;
+            height: 50px;
+            background-color: #eee;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 1.6rem;
+        }
+
+        input[type="date"],
+        input[type="time"] {
+            width: 45%;
+            margin-top: 10px;
+        }
+
+        .form input:nth-child(2) {
+            margin-top: 10px;
+        }
+
+        .form textarea {
+            height: 100px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            color: var(--black);
+            background: #3fa2ff;
+            border-radius: 25px;
+            font-size: 2rem;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        button i{
+            color: white;
+            transition: all 1s;
+        }
+        button:hover i{
+            transform: rotate(360deg);
+        }
+
+        
+
+
+        .footer {
+            width: 100%;
+        }
+
+
+        .footer .credit {
+            text-align: center;
+            border-top: 0.1rem solid rgba(0, 0, 0, 0.1);
+            font-size: 2rem;
+            color: var(--black);
+            padding: 0.5rem;
+            padding-top: 1.5rem;
+        }
+
+        .footer .credit i {
+            color: #ff0000;
+        }
+
+        .footer .credit span {
+            color: #27ae9c;
+            font-size: 2rem;
+            font-family: 'Nosifer', cursive;
+            
+        }
+
+        @media(max-width: 720px) {
+
+            .main {
+                width: 100%;
+                min-height: 85vh;
+            }
+
+            .form {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <header>
+        <div class="title">My task</div>
+        <i class="fa-solid fa-plus" id="addTask"></i>
+    </header>
+
+    <section class="main">
+        <div class="task-container">
+            <div class="item">
+                <div class="t-title">Title</div>
+                <div class="remining">time left</div>
+                <div class="btns">
+                    <i class="fa-solid fa-check check" id="check"></i>
+                    <i class="fa-solid fa-trash remove"></i>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="t-title">Title</div>
+                <div class="remining">time left</div>
+                <div class="btns">
+                    <i class="fa-solid fa-check check" id="check"></i>
+                    <i class="fa-solid fa-trash remove"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="list-form">
+
+        <div class="form">
+            <input type="text" placeholder="title" id="title">
+
+            <input type="date" placeholder="date" id="date">
+            <input type="time" placeholder="date" id="time">
+            <textarea placeholder="Description" id="desc"></textarea>
+            <button id="bt-new-task"> <i class="fa-solid fa-plus"></i> Create Task</button>
+        </div>
+
+    </section>
+
+
+    <!--Footer Section-->
+    <section class="footer">
+        <div class="credit">Made with <i class="fa-solid fa-heart"></i> by <span>@rkens</span> | &copy; 2022</div>
+    </section>
+
+    <script>
+
+        alert("Existing items will be deleted when creating your first task. Leave your comment. Did you like it? Leave a like \nThank you");
+
+        //Global Variable
+
+        //items list
+        var list = [];
+
+        //form 
+        var title = document.querySelector("#title");
+        var time = document.querySelector("#time");
+        var date = document.querySelector("#date");
+        var desc = document.querySelector("#desc");
+
+        var newTask = document.querySelector("#bt-new-task");
+
+        var form = document.querySelector(".list-form");
+
+        document.querySelector("#addTask").onclick = () => {
+            form.classList.toggle('visible');
+            clearForm();
+        }
+
+
+
+
+        newTask.addEventListener('click', () => {
+
+            if(title.value == "" ||
+                time.value == "" ||
+                date.value == "" ||
+                
+                containTitle(title.value)){
+                    alert("fill in all fields");
+                    return;
+            }
+
+            list.push(
+                {
+                    "titulo": title.value,
+                    "time": time.value,
+                    "date": date.value,
+                    "desc": desc.value
+                }
+            );
+            updateItems();
+            form.classList.toggle('visible');
+            clearForm();
+        });
+
+        function containTitle(title){
+            for(let i = 0; i < list.length; i++){
+                if(list[i].titulo == title){return true}
+            }
+        }
+
+        function clearForm() {
+            title.value = "";
+            time.value = "";
+            date.value = "";
+            desc.value = "";
+        }
+
+        update();
+        function update() {
+            var itemButtons = document.querySelectorAll(".btns");
+            for (var i = 0; i < itemButtons.length; i++) {
+                var chek = itemButtons[i].querySelector(".check");
+                var remove = itemButtons[i].querySelector(".remove");
+                chek.addEventListener('click', checkclicked);
+                remove.addEventListener('click', removeclicked);
+            }
+        }
+
+        function updateItems() {
+
+            let itemContainre = document.getElementsByClassName("task-container")[0];
+            itemContainre.innerHTML = "";
+
+            for (var i = 0; i < list.length; i++) {
+                var task = list[i];
+                console.log(task['time']);
+
+                var item = document.createElement('div');
+                item.classList.add('item');
+
+                var itemContent = `
+                    <div class="t-title">${task["titulo"]}</div>
+                    <div class="remining">${task["date"]}</div>
+                    <div class="btns">
+                        <i class="fa-solid fa-check check" id="check"></i>
+                        <i class="fa-solid fa-trash remove"></i>
+                    </div>`;
+                item.innerHTML = itemContent;
+                itemContainre.appendChild(item);
+
+                var data = task.date.split('-');
+                var hora = task.time.split(":");
+
+                console.log(data[0], data[1], data[2], hora[0], hora[1]);
+                let goal = new Date(parseInt(data[0]), parseInt(data[1]) - 1, parseInt(data[2]), parseInt(hora[0]), parseInt(hora[1]));
+                let time = goal.getTime();
+
+                {
+                    let today = new Date().getTime();
+                    let lacking = goal - today;
+
+                    let format = (num) => (num < 10 ? `0${num}` : num);
+                    let fullMin = 60 * 1000;
+                    let fullHour = fullMin * 60
+                    let fullDay = (fullHour * 24);
+                    let out = "";
+                    if (today > goal) {
+                        out = "time out";
+                    } else {
+                        let days = Math.floor(lacking / fullDay);
+                        let hours = Math.floor((lacking % fullDay) / fullHour);
+                        let minute = Math.floor((lacking % fullHour) / fullMin);
+                        let seconds = Math.floor((lacking % fullMin) / 1000);
+
+                        if (days > 0) {
+                            out = days + " days";
+                        } else {
+                            out = format(hours) + ":" + format(minute) + ":" + format(seconds);
+                        }
+                    }
+                    item.getElementsByClassName("remining")[0].textContent = out;
+                };
+
+            }
+            update();
+
+        }
+
+        function checkclicked(event) {
+            let it = event.target;
+            if (it.classList.contains("fa-check")) {
+                it.classList.remove("fa-check");
+                it.classList.add("fa-xmark");
+            } else {
+                it.classList.remove("fa-xmark");
+                it.classList.add("fa-check");
+            }
+            it.parentElement.parentElement.classList.toggle("checked");
+        }
+
+        function removeclicked(event) {
+            let it = event.target;
+            let it_title = it.parentElement.parentElement.getElementsByClassName("t-title")[0].textContent;
+
+            list = list.filter((element) => {
+                return element != it_title;
+            });
+
+            it.parentElement.parentElement.remove();
+        }
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
